@@ -20,6 +20,7 @@ const TestFiles = [
   // 'data/2',
 ];
 
+const isMarkDown = true;
 function runProcess(id, cmd, log) {
   log.debug({ cmd: cmd[0], args: cmd.slice(1) }, 'Spawn');
 
@@ -136,9 +137,20 @@ async function main() {
     }
   }
 
-  console.log(
-    ['Client', 'Threads', 'Files', 'FileSize (MB)', 'TotalTransferred (MB)', 'Duration (s)', 'Speed (MB/s)'].join('\t'),
-  );
+  const sep = isMarkDown ? '|' : '\t';
+  const Header = [
+    'Client',
+    'Threads',
+    'Files',
+    'FileSize (MB)',
+    'TotalTransferred (MB)',
+    'Duration (s)',
+    'Speed (MB/s)',
+  ];
+  console.log(Header.join(sep));
+  if (isMarkDown) {
+    console.log(Header.map((c) => '-').join('|'));
+  }
   for (const test of results) {
     console.log(
       [
@@ -149,7 +161,7 @@ async function main() {
         test.totalSent,
         test.duration / 1000,
         test.speed,
-      ].join('\t'),
+      ].join(sep),
     );
   }
 }
