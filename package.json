@@ -1,0 +1,19 @@
+{
+  "name": "s3-client-benchmark",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Blayne Chard <blayne@chard.com>",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint src/** --fix",
+    "start-server": "node src/server.js | npx pjl"
+  },
+  "dependencies": {
+    "@linzjs/style": "^2.0.0",
+    "aws-sdk": "^2.862.0",
+    "fastify": "^3.14.0",
+    "pino": "^6.11.2",
+    "pretty-json-log": "^0.3.2",
+    "ulid": "^2.3.0"
+  }
+}
