@@ -10,15 +10,17 @@ const clientAwsCli = require('./clients/aws-cli');
 
 const Clients = [
   //
-  clientAwsCli,
+  // clientAwsCli,
   clientAwsSdkJs,
   clientS5Cmd,
 ];
 const TestFiles = [
   //
-  'data/256',
+  'data/128',
+  // 'data/256',
   // 'data/512',
   // 'data/2048',
+  // 'data/4098',
 ];
 
 const isMarkDown = true;
