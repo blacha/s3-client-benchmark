@@ -11,8 +11,9 @@ Random data can be created with `./make-data.sh` which is generated into `data/`
 
 |Name|File Count|File Size|Total Size|
 |-|-|-|-|
-|data/2048|2|2GB|4GB
+|data/128|32|256MB|4GB|
 |data/256|16|256MB|4GB|
+|data/2048|2|2GB|4GB
 
 ## Mock s3 API
 - dev/null server with 4 threads
@@ -50,6 +51,7 @@ s5-cmd|4|16|256|16384|19.36|846.28
 - CPU: 16 Cores/32 Threads AMD Ryzen 9 5950X
 - OS: Ubuntu 21.04
 
+#### 32 x 128MB
 Client|Threads|Files|FileSize (MB)|TotalTransferred (MB)|Duration (s)|Speed (MB/s)
 -|-|-|-|-|-|-
 aws-cli|1|32|128|4096|20.455|200.24
@@ -61,6 +63,10 @@ s5-cmd|2|64|128|8192|6.458|1268.5
 aws-cli|4|128|128|16384|17.081|959.19
 aws-sdk:js|4|128|128|16384|7.581|2161.19
 s5-cmd|4|128|128|16384|6.86|2388.34
+
+#### 16 x 256MB
+Client|Threads|Files|FileSize (MB)|TotalTransferred (MB)|Duration (s)|Speed (MB/s)
+-|-|-|-|-|-|-
 aws-cli|8|256|128|32768|24.684|1327.5
 aws-sdk:js|8|256|128|32768|15.424|2124.48
 s5-cmd|8|256|128|32768|9.849|3327.04
@@ -76,6 +82,10 @@ s5-cmd|4|64|256|16384|6.086|2692.08
 aws-cli|8|128|256|32768|20.039|1635.21
 aws-sdk:js|8|128|256|32768|14.8|2214.05
 s5-cmd|8|128|256|32768|11.269|2907.8
+
+#### 8 x 512MB
+Client|Threads|Files|FileSize (MB)|TotalTransferred (MB)|Duration (s)|Speed (MB/s)
+-|-|-|-|-|-|-
 aws-cli|1|8|512|4096|13.727|298.39
 aws-sdk:js|1|8|512|4096|3.984|1028.11
 s5-cmd|1|8|512|4096|3.336|1227.82
@@ -88,6 +98,10 @@ s5-cmd|4|32|512|16384|5.255|3117.79
 aws-cli|8|64|512|32768|17.511|1871.28
 aws-sdk:js|8|64|512|32768|14.453|2267.21
 s5-cmd|8|64|512|32768|9.202|3560.97
+
+#### 2 x 2048MB
+Client|Threads|Files|FileSize (MB)|TotalTransferred (MB)|Duration (s)|Speed (MB/s)
+-|-|-|-|-|-|-
 aws-cli|1|2|2048|4096|12.854|318.66
 aws-sdk:js|1|2|2048|4096|3.956|1035.39
 s5-cmd|1|2|2048|4096|3.145|1302.38
@@ -100,6 +114,10 @@ s5-cmd|4|8|2048|16384|4.668|3509.85
 aws-cli|8|16|2048|32768|16.051|2041.49
 aws-sdk:js|8|16|2048|32768|14.265|2297.09
 s5-cmd|8|16|2048|32768|9.365|3498.99
+
+#### 1 x 4096MB
+Client|Threads|Files|FileSize (MB)|TotalTransferred (MB)|Duration (s)|Speed (MB/s)
+-|-|-|-|-|-|-
 aws-cli|1|1|4098|4098|12.217|335.43
 aws-sdk:js|1|1|4098|4098|3.797|1079.27
 s5-cmd|1|1|4098|4098|2.97|1379.8
