@@ -1,6 +1,6 @@
 # Benchmarking S3 Transfer tools
 
-- awscli
+- awscli v1.19.27
 - [s5cmd](https://github.com/peak/s5cmd)
 - [aws-sdk (js)](https://github.com/aws/aws-sdk-js) v2.862.0
 
