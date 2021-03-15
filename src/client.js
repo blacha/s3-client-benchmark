@@ -16,8 +16,9 @@ const Clients = [
 ];
 const TestFiles = [
   //
-  'data/16',
-  // 'data/2',
+  'data/256',
+  // 'data/512',
+  // 'data/2048',
 ];
 
 const isMarkDown = true;
