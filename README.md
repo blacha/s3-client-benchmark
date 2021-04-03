@@ -14,15 +14,101 @@ Random data can be created with `./make-data.sh` which is generated into `data/`
 |data/128|32|256MB|4GB|
 |data/256|16|256MB|4GB|
 |data/2048|2|2GB|4GB
+|data/4096|1|4GB|4GB
 
 ## Mock s3 API
-- dev/null server with 4 threads
+Mock server server with 4 worker threads
 
 ```
 WORKER_COUNT=4 node src/server.js
 ```
 
 On a high end desktop CPU a single nodejs thread can process >1GB/s
+
+## Client Connection
+
+Connect client to a local s3 mock server
+
+```
+node src/client http://localhost:8080
+```
+
+
+# Results
+
+## Remote
+
+Two computers were directly connected with a 8M cat6 networking cable.
+
+
+### Client
+- CPU: 16 Cores/32 Threads AMD Ryzen 9 5950X
+- OS: Ubuntu 21.04
+- Nic: Aquantia Corp. AQC107 NBase-T/IEEE 802.3bz Ethernet Controller \[AQtion\] (rev 02)
+
+### Server
+- CPU 8 Cores/16 Threads Intel Xeon D-2141I CPU @ 2.20GHz
+- OS: Ubuntu 20.10
+- Nic: Intel Corporation Ethernet Connection X722 for 10GBASE-T
+
+### Iperf3
+iperf3 was run across the link for 1 minute and showed a average transfer rate of around 700MB/s
+
+```
+Connecting to host 192.168.0.250, port 5201
+[  5] local 192.168.0.200 port 59630 connected to 192.168.0.250 port 5201
+[ ID] Interval           Transfer     Bitrate         Retr  Cwnd
+[  5]   0.00-1.00   sec   730 MBytes  6.12 Gbits/sec   91   1.34 MBytes       
+[  5]   1.00-2.00   sec   729 MBytes  6.11 Gbits/sec    0   1.35 MBytes       
+[  5]   2.00-3.00   sec   730 MBytes  6.12 Gbits/sec    0   1.35 MBytes       
+[  5]   3.00-4.00   sec   729 MBytes  6.11 Gbits/sec    0   1.36 MBytes       
+[  5]   4.00-5.00   sec   730 MBytes  6.12 Gbits/sec    0   1.36 MBytes       
+[  5]   5.00-6.00   sec   730 MBytes  6.12 Gbits/sec    0   1.38 MBytes       
+[  5]   6.00-7.00   sec   729 MBytes  6.11 Gbits/sec    0   1.38 MBytes       
+[  5]   7.00-8.00   sec   730 MBytes  6.12 Gbits/sec    0   1.53 MBytes       
+[  5]   8.00-9.00   sec   729 MBytes  6.11 Gbits/sec    0   1.53 MBytes       
+[  5]   9.00-10.00  sec   730 MBytes  6.12 Gbits/sec    0   1.53 MBytes       
+
+...
+
+[ ID] Interval           Transfer     Bitrate         Retr
+[  5]   0.00-60.00  sec  42.7 GBytes  6.12 Gbits/sec  198             sender
+[  5]   0.00-60.00  sec  42.7 GBytes  6.12 Gbits/sec                  receiver
+```
+
+
+Client|Threads|Files|FileSize (MB)|TotalTransferred (MB)|Duration (s)|Speed (MB/s)
+-|-|-|-|-|-|-
+aws-sdk:js|1|32|128|4096|6.319|648.2
+s5-cmd|1|32|128|4096|9.363|437.47
+aws-sdk:js|2|64|128|8192|12.207|671.09
+s5-cmd|2|64|128|8192|13.238|618.82
+aws-sdk:js|4|128|128|16384|23.964|683.69
+s5-cmd|4|128|128|16384|23.122|708.59
+aws-sdk:js|1|16|256|4096|6.137|667.43
+s5-cmd|1|16|256|4096|8.258|496
+aws-sdk:js|2|32|256|8192|11.825|692.77
+s5-cmd|2|32|256|8192|13.208|620.23
+aws-sdk:js|4|64|256|16384|23.469|698.11
+s5-cmd|4|64|256|16384|23.396|700.29
+aws-sdk:js|1|8|512|4096|5.955|687.83
+s5-cmd|1|8|512|4096|7.454|549.5
+aws-sdk:js|2|16|512|8192|11.672|701.85
+s5-cmd|2|16|512|8192|12.299|666.07
+aws-sdk:js|4|32|512|16384|23.162|707.37
+s5-cmd|4|32|512|16384|23.085|709.72
+aws-sdk:js|1|2|2048|4096|5.907|693.41
+s5-cmd|1|2|2048|4096|6.422|637.81
+aws-sdk:js|2|4|2048|8192|11.579|707.49
+s5-cmd|2|4|2048|8192|11.581|707.37
+aws-sdk:js|4|8|2048|16384|22.976|713.09
+s5-cmd|4|8|2048|16384|22.791|718.88
+aws-sdk:js|1|1|4098|4098|6.275|653.07
+s5-cmd|1|1|4098|4098|5.821|704
+aws-sdk:js|2|2|4098|8196|11.624|705.09
+s5-cmd|2|2|4098|8196|11.474|714.31
+aws-sdk:js|4|4|4098|16392|22.882|716.37
+s5-cmd|4|4|4098|16392|22.807|718.73
 
 
 ## Localhost 
